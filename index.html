@@ -107,11 +107,6 @@ a:hover { color: var(--ink); }
 .hero-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .ig-card { aspect-ratio: 1; overflow: hidden; position: relative; background: var(--off-white); }
 .ig-card:nth-child(even) { margin-top: 32px; }
-.ig-card img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; display: block; transition: transform 0.5s ease;
-}
-.ig-card:hover img { transform: scale(1.04); }
 .ig-placeholder {
   position: absolute; inset: 0;
   background: linear-gradient(135deg, var(--blue-pale) 0%, #d8e4ef 100%);
@@ -135,12 +130,6 @@ a:hover { color: var(--ink); }
   display: flex; align-items: center; gap: 20px; white-space: nowrap; padding: 0 20px;
   font-family: var(--sans); font-size: 12px; font-weight: 400;
   letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.85);
-  position: relative;
-}
-.ticker-icon {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-  width: 28px; height: 28px; stroke: rgba(255,255,255,0.35); stroke-width: 1.5;
-  fill: none; stroke-linecap: round; stroke-linejoin: round; pointer-events: none;
 }
 .ticker-item::after { content: '★'; color: rgba(255,255,255,0.3); font-size: 8px; }
 
@@ -194,7 +183,6 @@ a:hover { color: var(--ink); }
 .include-item {
   padding: 0 40px 0 0;
   border-right: 1px solid var(--rule);
-  margin-right: 0;
 }
 .include-item:first-child { padding-left: 0; }
 .include-item:last-child { border-right: 0; padding-right: 0; padding-left: 40px; }
@@ -245,29 +233,27 @@ a:hover { color: var(--ink); }
   margin: 12px 0 0; max-width: 42ch;
 }
 .videos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.video-card {
-  aspect-ratio: 9/16; background: #1a1a1a;
+.video-placeholder {
+  aspect-ratio: 9/16;
+  background: linear-gradient(160deg, #1a2a38 0%, #2a3f52 100%);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  position: relative; cursor: pointer; overflow: hidden;
+  position: relative; gap: 16px;
 }
-.video-card::after {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(74,107,138,0.08); opacity: 0; transition: opacity 0.3s;
-}
-.video-card:hover::after { opacity: 1; }
-.play-btn {
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.5);
+.video-placeholder-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.25);
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s; position: relative; z-index: 1;
 }
-.video-card:hover .play-btn { border-color: #fff; background: rgba(255,255,255,0.08); }
-.play-btn svg { margin-left: 3px; }
-.video-tag {
+.video-placeholder-icon svg { margin-left: 3px; }
+.video-placeholder-text {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.video-placeholder-tag {
   position: absolute; bottom: 16px; left: 16px;
   font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); z-index: 1;
+  color: rgba(255,255,255,0.4);
 }
 
 /* ─ COMO FUNCIONA ─────────────────────────────────────── */
@@ -326,11 +312,14 @@ a:hover { color: var(--ink); }
   max-width: var(--max); margin: 0 auto;
   display: grid; grid-template-columns: 220px 1fr; gap: 60px; align-items: start;
 }
-.bio-figure { margin: 0; }
-.bio-photo {
-  width: 100%; aspect-ratio: 3/4; object-fit: cover;
-  object-position: center top; display: block;
-  filter: grayscale(30%) contrast(1.05);
+.bio-monogram {
+  width: 100%; aspect-ratio: 3/4;
+  background: linear-gradient(160deg, var(--blue-pale) 0%, #cddae7 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.bio-monogram span {
+  font-family: var(--serif); font-size: 72px; font-weight: 300;
+  color: var(--blue); opacity: 0.5; letter-spacing: -0.02em;
 }
 .bio-name {
   font-family: var(--serif); font-weight: 300;
@@ -468,7 +457,7 @@ a:hover { color: var(--ink); }
   .how-inner { grid-template-columns: 1fr; }
   .price-box { position: static; }
   .bio-inner { grid-template-columns: 1fr; }
-  .bio-figure { max-width: 300px; }
+  .bio-monogram { max-width: 220px; }
   .briefing-inner { grid-template-columns: 1fr; }
 }
 @media (max-width: 580px) {
@@ -478,30 +467,13 @@ a:hover { color: var(--ink); }
 }
 </style>
 </head>
-<template id="__bundler_thumbnail" data-bg-color="#EBF0F5">
-  <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-    <rect width="400" height="600" fill="#EBF0F5"/>
-    <rect x="40" y="80" width="160" height="8" rx="0" fill="#4A6B8A" opacity="0.3"/>
-    <rect x="40" y="110" width="320" height="40" rx="0" fill="#1C1C1C" opacity="0.8"/>
-    <rect x="40" y="160" width="240" height="40" rx="0" fill="#1C1C1C" opacity="0.8"/>
-    <rect x="40" y="230" width="180" height="14" rx="0" fill="#1C1C1C" opacity="0.4"/>
-    <rect x="40" y="270" width="140" height="44" rx="0" fill="#4A6B8A"/>
-    <rect x="220" y="80" width="140" height="130" rx="0" fill="#4A6B8A" opacity="0.2"/>
-    <rect x="240" y="230" width="140" height="130" rx="0" fill="#4A6B8A" opacity="0.15"/>
-    <rect x="40" y="380" width="320" height="2" fill="#4A6B8A" opacity="0.2"/>
-    <rect x="40" y="410" width="60" height="32" rx="0" fill="#4A6B8A" opacity="0.5"/>
-    <rect x="120" y="410" width="60" height="32" rx="0" fill="#4A6B8A" opacity="0.5"/>
-    <rect x="200" y="410" width="60" height="32" rx="0" fill="#4A6B8A" opacity="0.5"/>
-    <rect x="280" y="410" width="60" height="32" rx="0" fill="#4A6B8A" opacity="0.5"/>
-  </svg>
-</template>
 <body>
 
 <!-- NAV -->
 <nav class="site-nav">
   <a href="#" class="nav-brand">
     <div class="nav-logo-wrap">
-      <img src="uploads/rn_dev_studio_logo_512.png" alt="RN Studio"
+      <img src="./rn_dev_studio_logo_1024.png" alt="RN Studio"
         onerror="this.style.display='none';this.parentNode.querySelector('.nav-logo-fallback').style.display='flex'">
       <span class="nav-logo-fallback">RN</span>
     </div>
@@ -511,12 +483,12 @@ a:hover { color: var(--ink); }
 </nav>
 
 <!-- HERO -->
-<section class="hero-section" style="position: relative">
+<section class="hero-section">
   <div class="hero-inner">
     <div class="hero-left">
       <span class="kicker">RN Studio · Pack Personalizado</span>
       <h1 class="hero-title">Conteúdo feito só para o <em>seu</em> negócio.</h1>
-      <p class="hero-sub"><span style="text-wrap-mode: initial;"><b>60 posts prontos para Instagram e Facebook — com a sua cara, suas cores e, se quiser, o seu logotipo. Nenhum concorrente vai ter o mesmo conteúdo que você.</b></span></p>
+      <p class="hero-sub"><b>60 posts prontos para Instagram e Facebook — com a sua cara, suas cores e, se quiser, o seu logotipo. Nenhum concorrente vai ter o mesmo conteúdo que você.</b></p>
       <p class="hero-price"><strong>R$97</strong> · pack completo · pagamento único</p>
       <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
         <a href="https://pay.cakto.com.br/sniitf8_996361" class="btn-primary">Quero o pack completo</a>
@@ -527,41 +499,36 @@ a:hover { color: var(--ink); }
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Barbearia</span></div>
-          <img src="uploads/Barber_hands_organizing_vintage_..._202607251239.jpeg" alt="Barbearia">
         </div>
         <p class="ig-label">Barbearia</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Nutrição</span></div>
-          <img src="uploads/Fresh_tropical_Brazilian_fruits_..._202607251239.jpeg" alt="Nutrição">
         </div>
         <p class="ig-label">Nutrição</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Bem-estar</span></div>
-          <img src="uploads/Spa_treatment_room_white_orchids_202607251239.jpeg" alt="Bem-estar">
         </div>
         <p class="ig-label">Bem-estar</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Fitness</span></div>
-          <img src="uploads/Hands_gripping_dumbbell_in_gym_202607251239.jpeg" alt="Fitness">
         </div>
         <p class="ig-label">Fitness</p>
       </div>
     </div>
   </div>
-  <div style="font-size: 16px; line-height: 1; font-family: Archivo, system-ui, sans-serif; position: absolute; left: 400px; top: 226px; width: 560px; height: 160px"><br></div>
 </section>
 
 <hr class="rule">
 
 <div class="ticker-wrap">
   <div class="ticker-track">
-    <span class="ticker-item" >Barbearia</span><span class="ticker-item" >Nutrição</span><span class="ticker-item" >Bem-estar</span><span class="ticker-item" >Fitness</span><span class="ticker-item" >Clínica de Estética</span><span class="ticker-item" >Escola de Idiomas</span><span class="ticker-item" >Loja de Suplementos</span><span class="ticker-item" >Psicólogo Clínico</span><span class="ticker-item" >Imobiliária</span><span class="ticker-item" >Clínica Veterinária</span><span class="ticker-item" >Advocacia</span><span class="ticker-item" >Ótica</span><span class="ticker-item" >Quiropraxia</span><span class="ticker-item" >Móveis Planejados</span><span class="ticker-item" >Escola de Música</span><span class="ticker-item" >Jardinagem</span><span class="ticker-item" >Saúde Mental</span><span class="ticker-item" >Pedreiro</span><span class="ticker-item" >Encanador</span><span class="ticker-item" >Eletricista</span><span class="ticker-item" >Barbearia</span><span class="ticker-item" >Nutrição</span><span class="ticker-item" >Bem-estar</span><span class="ticker-item" >Fitness</span><span class="ticker-item" >Clínica de Estética</span><span class="ticker-item" >Escola de Idiomas</span><span class="ticker-item" >Loja de Suplementos</span><span class="ticker-item" >Psicólogo Clínico</span><span class="ticker-item" >Imobiliária</span><span class="ticker-item" >Clínica Veterinária</span><span class="ticker-item" >Advocacia</span><span class="ticker-item" >Ótica</span><span class="ticker-item" >Quiropraxia</span><span class="ticker-item" >Móveis Planejados</span><span class="ticker-item" >Escola de Música</span><span class="ticker-item" >Jardinagem</span><span class="ticker-item" >Saúde Mental</span><span class="ticker-item" >Pedreiro</span><span class="ticker-item" >Encanador</span><span class="ticker-item" >Eletricista</span>
+    <span class="ticker-item">Barbearia</span><span class="ticker-item">Nutrição</span><span class="ticker-item">Bem-estar</span><span class="ticker-item">Fitness</span><span class="ticker-item">Clínica de Estética</span><span class="ticker-item">Escola de Idiomas</span><span class="ticker-item">Loja de Suplementos</span><span class="ticker-item">Psicólogo Clínico</span><span class="ticker-item">Imobiliária</span><span class="ticker-item">Clínica Veterinária</span><span class="ticker-item">Advocacia</span><span class="ticker-item">Ótica</span><span class="ticker-item">Quiropraxia</span><span class="ticker-item">Móveis Planejados</span><span class="ticker-item">Escola de Música</span><span class="ticker-item">Jardinagem</span><span class="ticker-item">Saúde Mental</span><span class="ticker-item">Pedreiro</span><span class="ticker-item">Encanador</span><span class="ticker-item">Eletricista</span><span class="ticker-item">Barbearia</span><span class="ticker-item">Nutrição</span><span class="ticker-item">Bem-estar</span><span class="ticker-item">Fitness</span><span class="ticker-item">Clínica de Estética</span><span class="ticker-item">Escola de Idiomas</span><span class="ticker-item">Loja de Suplementos</span><span class="ticker-item">Psicólogo Clínico</span><span class="ticker-item">Imobiliária</span><span class="ticker-item">Clínica Veterinária</span><span class="ticker-item">Advocacia</span><span class="ticker-item">Ótica</span><span class="ticker-item">Quiropraxia</span><span class="ticker-item">Móveis Planejados</span><span class="ticker-item">Escola de Música</span><span class="ticker-item">Jardinagem</span><span class="ticker-item">Saúde Mental</span><span class="ticker-item">Pedreiro</span><span class="ticker-item">Encanador</span><span class="ticker-item">Eletricista</span>
   </div>
 </div>
 
@@ -655,22 +622,22 @@ a:hover { color: var(--ink); }
     <div class="portfolio-grid">
       <div class="port-card">
         <div class="port-placeholder"><span class="port-placeholder-name">Barbearia do Léo</span></div>
-        <img src="uploads/Card-Barbearia-do-Leo.png" alt="Barbearia do Léo">
+        <img src="./Card-Barbearia-do-Leo.png" alt="Barbearia do Léo">
         <div class="port-overlay"><span class="port-label">Barbearia do Léo</span></div>
       </div>
       <div class="port-card">
         <div class="port-placeholder"><span class="port-placeholder-name">Fome de Açúcar</span></div>
-        <img src="uploads/Card-Fome-de-Acucar-RN-Studio.png" alt="Fome de Açúcar">
+        <img src="./Card-Fome-de-Acucar-RN-Studio.png" alt="Fome de Açúcar">
         <div class="port-overlay"><span class="port-label">Fome de Açúcar</span></div>
       </div>
       <div class="port-card">
         <div class="port-placeholder"><span class="port-placeholder-name">Studio Zen</span></div>
-        <img src="uploads/Card-Studio-Zen-RN-Studio.png" alt="Studio Zen">
+        <img src="./Card-Studio-Zen-RN-Studio.png" alt="Studio Zen">
         <div class="port-overlay"><span class="port-label">Studio Zen</span></div>
       </div>
       <div class="port-card">
         <div class="port-placeholder"><span class="port-placeholder-name">Arena Fit</span></div>
-        <img src="uploads/Card-Arena-Fit-RN-Studio.png" alt="Arena Fit">
+        <img src="./Card-Arena-Fit-RN-Studio.png" alt="Arena Fit">
         <div class="port-overlay"><span class="port-label">Arena Fit</span></div>
       </div>
     </div>
@@ -687,21 +654,41 @@ a:hover { color: var(--ink); }
       <h2 class="videos-headline">Veja os posts em ação — antes de contratar.</h2>
     </div>
     <div class="videos-grid">
-      <div class="video-card" style="background:#000;">
-        <video src="uploads/video-barbearia-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Barbearia</span>
+      <div class="video-placeholder">
+        <div class="video-placeholder-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-text">Em breve</span>
+        <span class="video-placeholder-tag">Barbearia</span>
       </div>
-      <div class="video-card" style="background:#000;">
-        <video src="uploads/video-alimentacao-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Alimentação</span>
+      <div class="video-placeholder">
+        <div class="video-placeholder-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-text">Em breve</span>
+        <span class="video-placeholder-tag">Alimentação</span>
       </div>
-      <div class="video-card" style="background:#000;">
-        <video src="uploads/video-bem-estar-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Bem-estar</span>
+      <div class="video-placeholder">
+        <div class="video-placeholder-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-text">Em breve</span>
+        <span class="video-placeholder-tag">Bem-estar</span>
       </div>
-      <div class="video-card" style="background:#000;">
-        <video src="uploads/video-fitness-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Fitness</span>
+      <div class="video-placeholder">
+        <div class="video-placeholder-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-text">Em breve</span>
+        <span class="video-placeholder-tag">Fitness</span>
       </div>
     </div>
   </div>
@@ -783,8 +770,8 @@ a:hover { color: var(--ink); }
 <!-- BIO -->
 <section class="bio-section" id="sobre">
   <div class="bio-inner">
-    <figure class="bio-figure">
-      <img src="uploads/raphael-foto.jpeg" alt="Raphael Nunes — fundador do RN Studio" class="bio-photo" style="object-position: center 20%;">
+    <figure class="bio-figure" style="margin:0;">
+      <div class="bio-monogram"><span>RN</span></div>
     </figure>
     <div>
       <span class="kicker">Fundador · RN Studio</span>
@@ -911,7 +898,6 @@ a:hover { color: var(--ink); }
 </footer>
 
 <script>
-// FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
@@ -923,7 +909,6 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 function toggleLogo(el) {
   document.getElementById('logo-upload').style.display = el.value === 'Sim' ? 'block' : 'none';
 }
-
 function submitBriefing(e) {
   e.preventDefault();
   const f = e.target;
@@ -938,7 +923,6 @@ function submitBriefing(e) {
     '📋 *BRIEFING — Pack Personalizado RN Studio*',
     '',
     `*Pack escolhido:* ${v('pack_escolhido')}`,
-
     '',
     `*Negócio:* ${v('negocio')}`,
     `*Segmento:* ${v('segmento')}`,
@@ -950,7 +934,6 @@ function submitBriefing(e) {
     `*Observações:* ${v('obs') || 'Nenhuma'}`,
     `*Tem logotipo?* ${radio('logo')}${radio('logo') === 'Sim' ? ' — logo em anexo' : ''}`,
   ];
-  // Substitua pelo e-mail da RN Studio
   const email = 'rnstudio.app@gmail.com';
   const subject = encodeURIComponent('Briefing — Pack Personalizado RN Studio');
   const body = encodeURIComponent(lines.join('\n'));
