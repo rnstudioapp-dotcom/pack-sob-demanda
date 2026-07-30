@@ -499,24 +499,28 @@ a:hover { color: var(--ink); }
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Barbearia</span></div>
+          <img src="./Barber_hands_organizing_vintage___202607251239.jpeg" alt="Barbearia" onerror="this.style.display='none'">
         </div>
         <p class="ig-label">Barbearia</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Nutrição</span></div>
+          <img src="./Fresh_tropical_Brazilian_fruits___202607251239.jpeg" alt="Nutrição" onerror="this.style.display='none'">
         </div>
         <p class="ig-label">Nutrição</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Bem-estar</span></div>
+          <img src="./Spa_treatment_room_white_orchids_202607251239.jpeg" alt="Bem-estar" onerror="this.style.display='none'">
         </div>
         <p class="ig-label">Bem-estar</p>
       </div>
       <div>
         <div class="ig-card">
           <div class="ig-placeholder"><span>Fitness</span></div>
+          <img src="./Hands_gripping_dumbbell_in_gym_202607251239.jpeg" alt="Fitness" onerror="this.style.display='none'">
         </div>
         <p class="ig-label">Fitness</p>
       </div>
@@ -654,41 +658,21 @@ a:hover { color: var(--ink); }
       <h2 class="videos-headline">Veja os posts em ação — antes de contratar.</h2>
     </div>
     <div class="videos-grid">
-      <div class="video-placeholder">
-        <div class="video-placeholder-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
-          </svg>
-        </div>
-        <span class="video-placeholder-text">Em breve</span>
-        <span class="video-placeholder-tag">Barbearia</span>
+      <div class="video-card" style="background:#000;">
+        <video src="./video-barbearia-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Barbearia</span>
       </div>
-      <div class="video-placeholder">
-        <div class="video-placeholder-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
-          </svg>
-        </div>
-        <span class="video-placeholder-text">Em breve</span>
-        <span class="video-placeholder-tag">Alimentação</span>
+      <div class="video-card" style="background:#000;">
+        <video src="./video-alimentacao-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Alimentação</span>
       </div>
-      <div class="video-placeholder">
-        <div class="video-placeholder-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
-          </svg>
-        </div>
-        <span class="video-placeholder-text">Em breve</span>
-        <span class="video-placeholder-tag">Bem-estar</span>
+      <div class="video-card" style="background:#000;">
+        <video src="./video-bem-estar-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Bem-estar</span>
       </div>
-      <div class="video-placeholder">
-        <div class="video-placeholder-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <polygon points="5,3 13,8 5,13" fill="rgba(255,255,255,0.4)"/>
-          </svg>
-        </div>
-        <span class="video-placeholder-text">Em breve</span>
-        <span class="video-placeholder-tag">Fitness</span>
+      <div class="video-card" style="background:#000;">
+        <video src="./video-fitness-web.mp4" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <span class="video-tag" style="position:absolute;bottom:12px;left:12px;z-index:2;">Fitness</span>
       </div>
     </div>
   </div>
@@ -771,7 +755,8 @@ a:hover { color: var(--ink); }
 <section class="bio-section" id="sobre">
   <div class="bio-inner">
     <figure class="bio-figure" style="margin:0;">
-      <div class="bio-monogram"><span>RN</span></div>
+      <div class="bio-monogram" id="bio-fallback"><span>RN</span></div>
+      <img src="./Person's_face_unchanged_clothing___202607251313.jpeg" alt="Raphael Nunes" class="bio-photo" style="object-position: center 20%; display:none;" id="bio-photo" onerror="this.style.display='none';document.getElementById('bio-fallback').style.display='flex'">
     </figure>
     <div>
       <span class="kicker">Fundador · RN Studio</span>
@@ -898,6 +883,15 @@ a:hover { color: var(--ink); }
 </footer>
 
 <script>
+// Show bio photo if it loads
+const bioPhoto = document.getElementById('bio-photo');
+const bioFallback = document.getElementById('bio-fallback');
+if (bioPhoto) {
+  bioPhoto.onload = function() {
+    bioPhoto.style.display = 'block';
+    if (bioFallback) bioFallback.style.display = 'none';
+  };
+}
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
